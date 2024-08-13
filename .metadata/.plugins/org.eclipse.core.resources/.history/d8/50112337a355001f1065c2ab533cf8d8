@@ -1,0 +1,24 @@
+package com.business.services;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.business.entities.Admin;
+import com.business.repository.AdminRepo;
+
+@Service
+public class AdminServices {
+
+	@Autowired
+	private AdminRepo adminRepo;
+	
+	//get All Admins
+	public List<Admin> getAll(){
+		List<Admin> all = adminRepo.findAll();
+		return all;
+	}
+	
+	
+}

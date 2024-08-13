@@ -1,0 +1,49 @@
+package com.business.controllors;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.business.entities.Product;
+import com.business.loginCredentials.AdminLogin;
+import com.business.services.ProductServices;
+
+@RestController
+public class HomeControllor {
+	
+	@Autowired
+	private ProductServices productServices;
+	
+	@GetMapping("/home")
+	public String home() {
+		return "Home";
+	}
+	
+	@GetMapping("/products")
+	public String products(Model model) {
+		List<Product> allProduct = productServices.getAllProducts();
+		model.addAttribute("products", allProduct);
+		return "Products";
+	}
+
+	@GetMapping("/location")
+	public String location(){
+		return "Locate_us";
+	}
+
+	@GetMapping("/about")
+	public String about(){
+		return "About";
+	}
+
+	@GetMapping("/login")
+	public String login(Model model){
+		model.addAttribute("adminLogin",new AdminLogin());
+		return "Login";
+	}
+	
+	
+}

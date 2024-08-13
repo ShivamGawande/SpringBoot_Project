@@ -1,0 +1,9 @@
+package com.business.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.business.entities.Orders;
+
+public interface OrderRepo extends JpaRepository<Orders, Integer> {
+	List<Orders> findByUser(User user);
+}

@@ -1,0 +1,21 @@
+package com.business.controllors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.business.services.AdminServices;
+import com.business.services.OrderServices;
+import com.business.services.ProductServices;
+import com.business.services.UserServices;
+
+@RestController
+public class AdminControllor {
+	@Autowired
+	private UserServices userServices;
+	@Autowired
+	private AdminServices adminServices;
+	@Autowired
+	private ProductServices productServices;
+	@Autowired
+	private OrderServices orderServices;
+}

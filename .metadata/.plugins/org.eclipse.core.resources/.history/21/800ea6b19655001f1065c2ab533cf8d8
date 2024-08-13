@@ -1,0 +1,11 @@
+package com.business.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.business.entities.Product;
+import java.util.List;
+
+
+public interface ProductRepo extends JpaRepository<Product, Integer> {
+	public Product findByPname(String pname);
+}

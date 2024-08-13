@@ -1,0 +1,13 @@
+package com.example.business.controllor;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class HomeControllor {
+
+	@GetMapping("/home")
+	public String home() {
+		return "Home";
+	}
+}

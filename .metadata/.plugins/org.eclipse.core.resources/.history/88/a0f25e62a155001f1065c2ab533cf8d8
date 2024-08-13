@@ -1,0 +1,22 @@
+package com.business.services;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.business.entities.Admin;
+import com.business.repository.AdminRepo;
+
+@RestController
+public class AdminServices {
+
+	@Autowired
+	private AdminRepo adminRepo;
+	
+	//get All Admins
+	public List<Admin> getAll(){
+		List<Admin> all = adminRepo.findAll();
+		return all;
+	}
+}

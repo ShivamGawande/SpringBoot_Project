@@ -1,0 +1,64 @@
+package com.business.controllors;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.business.entities.Orders;
+import com.business.entities.User;
+import com.business.loginCredentials.AdminLogin;
+import com.business.loginCredentials.UserLogin;
+import com.business.services.AdminServices;
+import com.business.services.OrderServices;
+import com.business.services.ProductServices;
+import com.business.services.UserServices;
+
+@RestController
+public class AdminControllor {
+	@Autowired
+	private UserServices userServices;
+	@Autowired
+	private AdminServices adminServices;
+	@Autowired
+	private ProductServices productServices;
+	@Autowired
+	private OrderServices orderServices;
+	
+	private String email;
+	private User user;
+	
+	//validating admin login
+	@GetMapping("/adminLogin")
+	public String getAllData(@ModelAttribute("adminLogin") AdminLogin adminLogin, Model model) {
+		String email=adminLogin.getEmail();
+		String password=adminLogin.getPassword();
+		if(adminServices.validatingLogin(email, password)) {
+			return "redirect:/admin/services";
+		}
+		else {
+			model.addAttribute("error", "Invalid email or password");
+			return "Login";
+		}
+	}
+	
+	public String userLogin(@ModelAttribute("userLogin") UserLogin userLogin,Model model) {
+		email=userLogin.getUserEmail();
+		String password=userLogin.getUserPassword();
+		if(userServices.validateUser(email, password)) {
+			user=userServices.getUserByEmail(email);
+			List<Orders> orders = orderServices.getOrderByUser(user);
+			model.addAttribute("orders", orders);
+			model.addAttribute("name", user.getUname());
+			return "BuyProduct";
+		}else {
+			model.addAttribute("error2", "Invalid email or password");
+			return "Login";
+		}
+	}
+	
+	
+}
